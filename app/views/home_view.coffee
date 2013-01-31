@@ -1,8 +1,6 @@
 View      = require './view'
 template  = require './templates/home'
-
-viking    = require './webgl/viking'
-
+game      = require './game'
 
 createCanvas = (el) ->
   renderer = new THREE.WebGLRenderer
@@ -21,50 +19,35 @@ createCanvas = (el) ->
     camera.updateProjectionMatrix()
     renderer.setSize window.innerWidth, window.innerHeight
 
-  client = {}
+  scene = new THREE.Scene()
 
-  client.scene = new THREE.Scene()
+  objects = []
 
-  quadGeom = new THREE.PlaneGeometry 1, 1
-  quadMat = new THREE.ShaderMaterial
-    vertexShader:
-      """
-      varying vec4 eyePosition;
-      varying vec3 worldPosition;
+  addObject = (obj) ->
+    scene.add obj.mesh
+    objects.push obj
 
-      void main() {
-            worldPosition = position;
-            eyePosition = modelViewMatrix * vec4(worldPosition, 1.0);
-            gl_Position = projectionMatrix * eyePosition;
-      }
-      """
-    fragmentShader:
-      """
-      varying vec4 eyePosition;
-      varying vec3 worldPosition;
+  engine = { addObject }
 
-      void main() {
-        gl_FragColor = vec4(0.1, 0.2, 0.3, 1.0);
-      }
-      """
+  game.setup engine
 
-  client.quad = new THREE.Mesh quadGeom, quadMat
+  lastTime = 0
 
-  client.scene.add client.quad
-
-  lastTime = Date.now()
-
-  do animate = ->
+  animate = (time) ->
     requestAnimationFrame animate
 
-    time = Date.now()
+    time *= 0.001
     deltaTime = Math.min 0.1, time - lastTime
     lastTime = time
 
-    quad.rotation.z += deltaTime
+    client = { time, deltaTime }
+
+    for object in objects
+      object.update client
 
     renderer.render scene, camera
 
+  animate 0
 
 module.exports = class HomeView extends View
   id: 'home-view'
