@@ -1,11 +1,12 @@
 Sprite    = require './sprite'
 
 module.exports = class Viking extends Sprite
+  name: 'viking'
   textureUrl: 'textures/Vikings/viking_2.png'
 
   setup: ->
-    @mesh.scale.set 5, 5, 1
-    @mesh.position.x = 3
+    @mesh.scale.set 2, 2, 1
+    @object.position.y = 0.5
 
-  update: (client) ->
-    @mesh.rotation.z = Math.sin client.time
+  update: (engine) ->
+    @mesh.rotation.z = Math.random()

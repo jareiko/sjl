@@ -7,6 +7,8 @@ module.exports = class Sprite extends THREE.Mesh
   constructor: (client) ->
     @material = spriteMaterial @textureUrl
     @mesh = new THREE.Mesh geom, @material
+    @object = new THREE.Object3D
+    @object.add @mesh
     @setup()
 
   setup: ->

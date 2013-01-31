@@ -32,10 +32,14 @@ module.exports = (textureUrl) ->
 
   if mat = cache[textureUrl] then return mat
 
+  texture = THREE.ImageUtils.loadTexture textureUrl
+  texture.magFilter = THREE.NearestFilter
+  texture.minFilter = THREE.NearestMipMapNearestFilter
   cache[textureUrl] = new THREE.ShaderMaterial
+    transparent: yes
     uniforms:
       tColor:
         type: 't'
-        value: THREE.ImageUtils.loadTexture textureUrl
+        value: texture
     vertexShader: vertexShader
     fragmentShader: fragmentShader
