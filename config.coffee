@@ -11,7 +11,8 @@ exports.config =
           'vendor/scripts/console-helper.js',
           'vendor/scripts/jquery-1.8.0.min.js',
           'vendor/scripts/underscore-1.4.4.js',
-          'vendor/scripts/backbone-0.9.10.js'
+          'vendor/scripts/backbone-0.9.10.js',
+          'vendor/scripts/three-r55.min.js'
         ]
 
         after: [
