@@ -9,7 +9,7 @@ createCanvas = (el) ->
     premultipliedAlpha: no
     clearColor: 0xaaccff
   renderer.sortObjects = no
-  #renderer.devicePixelRatio = 1
+  renderer.devicePixelRatio = 1
   renderer.setSize window.innerWidth, window.innerHeight
   el.appendChild renderer.domElement
 

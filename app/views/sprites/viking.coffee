@@ -13,13 +13,33 @@ module.exports = class Viking extends Sprite
     #@object.position.y = 0.5
 
     @vel = new Vec2
+    @inShip = yes
 
-  updateInBoat: (engine) ->
-    @object.position.x = @posWithinBoat
+  updateInShip: (engine) ->
+
+  updateOnLand: (engine) ->
+    deltaX = (Math.random() - 0.5) * 50
+    deltaX += @horde.pos.x - @object.position.x
+    @vel.x += deltaX * engine.deltaTime
+    @vel.x = (@vel.x + 2) * Math.pow(0.2, engine.deltaTime) - 2
+
+    @object.position.x += @vel.x * engine.deltaTime
+
+    seg = @horde.world.getSegmentAt @object.position.x
+    if seg.type isnt 'land1'
+      if @object.position.y <= 0 and @vel.y <= 0
+        if @object.position.x < seg.x
+          scale = Math.random() * 7 + 15
+          @vel.x = scale
+          @vel.y = scale
 
   update: (engine) ->
-    @object.position.y = Math.max 0, @object.position.y + @vel.y * engine.deltaTime
+    if @inShip
+      @updateInShip engine
+    else
+      @updateOnLand engine
     @vel.y -= 200 * engine.deltaTime
+    @object.position.y = Math.max 0, @object.position.y + @vel.y * engine.deltaTime
 
   onDrum: ->
     didJump = no
@@ -27,5 +47,11 @@ module.exports = class Viking extends Sprite
       @vel.y = Math.random() * 7 + 15
       didJump = yes
 
-    @vel.x += Math.random() * 10 - 3
+    @vel.x += Math.random() * 10 - 1
     didJump
+
+  disembark: ->
+    @inShip = no
+
+    @object.parent.parent.add @object
+    @object.position.copy @object.matrixWorld.getPosition()

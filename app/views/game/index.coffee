@@ -1,3 +1,4 @@
+Horde       = require './horde'
 sprites     = require '../sprites'
 { KEYCODE } = require '../util'
 World       = require './world'
@@ -10,20 +11,12 @@ isModifierKey = (event) ->
 
 module.exports = class Game
   constructor: (engine) ->
-
     @world = new World
     engine.scene.add @world.object
     @world.buildBackground()
 
     @ship = new sprites.Ship
-
-    numVikings = 10
-
-    @vikings = for i in [0...numVikings]
-      viking = new sprites.Viking
-      viking.object.position.x = (i / (numVikings - 1)) * 10 - 5
-      @ship.object.add viking.object
-      viking
+    @horde = new Horde @world, @ship
 
     engine.scene.add @ship.object
 
@@ -33,14 +26,7 @@ module.exports = class Game
 
   update: (engine) ->
     @ship.update engine
-    viking.update engine for viking in @vikings
-
-    engine.camera.position.x = @ship.object.position.x + 20
-
-  onDrum: ->
-    jumped = 0
-    jumped += viking.onDrum() for viking in @vikings
-    @ship.onDrum jumped / @vikings.length
+    @horde.update engine
 
   onKeyDown: (event) ->
     return unless keyWeCareAbout event
@@ -49,4 +35,4 @@ module.exports = class Game
     key = if @toggleKeys then KEYCODE.A else KEYCODE.L
     if event.keyCode is key
       @toggleKeys = not @toggleKeys
-      @onDrum()
+      @horde.onDrum()

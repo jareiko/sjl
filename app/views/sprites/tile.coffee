@@ -6,23 +6,36 @@ module.exports = class Tile extends Sprite
 
   types =
     sky:
-      url: 'textures/Tiles/Sky/sky.png'
-      width: 51.2
-      height: 48.0
+      urls: [ 'textures/Tiles/Sky/sky.png' ]
+      width: 512
+      height: 480
     sea1:
-      url: 'textures/Tiles/Sea/seatile1_1.png'
-      width: 6.4
-      height: 48.0
+      urls: [
+        'textures/Tiles/Sea/seatile1_1.png'
+        'textures/Tiles/Sea/seatile1_2.png'
+      ]
+      width: 64
+      height: 480
+    shore1:
+      urls: [
+        'textures/Tiles/Shore/shoretile1_1.png'
+        'textures/Tiles/Shore/shoretile1_2.png'
+      ]
+      width: 128
+      height: 480
+    land1:
+      urls: [
+        'textures/Tiles/Land/landtile1_1.png'
+      ]
+      width: 64
+      height: 480
 
   constructor: (type) ->
     @type = types[type]
-    @textureUrl = @type.url
+    @textureUrls = @type.urls
     super()
 
   setup: ->
-    @mesh.scale.set @type.width, @type.height, 1
+    @mesh.scale.set @type.width * 0.1, @type.height * 0.1, 1
+    @mesh.position.x = @mesh.scale.x * 0.5
     @object.position.z = -1
-
-  loadTexture: (texture) ->
-    image = texture.image
-    @mesh.scale.set image.width * 0.1, image.height * 0.1, 1

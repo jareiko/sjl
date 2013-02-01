@@ -14,8 +14,11 @@ module.exports = class Ship extends Sprite
     @moveSpeed = 0
 
   update: (engine) ->
-    @object.position.x = Math.max 0, @object.position.x + @moveSpeed * engine.deltaTime
-    @object.position.y = Math.sin(engine.time * 4.0) * 0.5 - 1
+    @object.position.x += @moveSpeed * engine.deltaTime
+    if @object.position.x < 0
+      @object.position.x = 0
+      @moveSpeed = 0
+    @object.position.y = Math.sin(engine.time * 4.0) * 0.5 - 1.2
 
     @object.rotation.z += @rollSpeed * engine.deltaTime
 
@@ -27,4 +30,4 @@ module.exports = class Ship extends Sprite
     @moveSpeed = (@moveSpeed + 3.0) * Math.pow(0.2, engine.deltaTime) - 3.0
 
   onDrum: (vikingsJumped) ->
-    @moveSpeed += vikingsJumped * vikingsJumped * 10
+    @moveSpeed += Math.pow(vikingsJumped, 3) * 10
