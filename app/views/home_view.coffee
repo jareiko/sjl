@@ -2,7 +2,7 @@ View      = require './view'
 template  = require './templates/home'
 Game      = require './game'
 
-createCanvas = (el) ->
+createRenderer = ->
   renderer = new THREE.WebGLRenderer
     alpha: no
     antialias: no
@@ -11,6 +11,10 @@ createCanvas = (el) ->
   renderer.sortObjects = no
   renderer.devicePixelRatio = 1
   renderer.setSize window.innerWidth, window.innerHeight
+  renderer
+
+createCanvas = (el) ->
+  renderer = createRenderer()
   el.appendChild renderer.domElement
 
   camera = new THREE.PerspectiveCamera 70, window.innerWidth / window.innerHeight, 1, 200
@@ -23,21 +27,11 @@ createCanvas = (el) ->
 
   scene = new THREE.Scene()
 
-  objects = [ 'game placeholder' ]
-
   engine =
     camera: camera
     scene: scene
-    addObject: (obj) ->
-      scene.add obj.object if obj.object
-      objects.push obj
-      if obj.name?
-        objectsByName[obj.name] ?= []
-        objectsByName[obj.name].push obj
-    addObjects: (objs) ->
-      engine.addObject obj for obj in objs
 
-  objects[0] = game = new Game engine
+  game = new Game engine
 
   document.addEventListener 'keydown', (event) -> game.onKeyDown event
 
@@ -53,8 +47,7 @@ createCanvas = (el) ->
     engine.time = time
     engine.deltaTime = deltaTime
 
-    for object in objects
-      object.update engine
+    game.update engine
 
     renderer.render scene, camera
 
