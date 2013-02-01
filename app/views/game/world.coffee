@@ -69,8 +69,8 @@ module.exports = class World
 
   buildForeground: ->
     x = 0
-    y = -0.5
-    z = 1
+    y = 0
+    z = 0
     for i in [-1..-6]
       tile = new Tile segments[0].type
       x -= tile.mesh.scale.x

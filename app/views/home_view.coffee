@@ -1,3 +1,4 @@
+Audio     = require './audio'
 View      = require './view'
 template  = require './templates/home'
 Game      = require './game'
@@ -28,9 +29,9 @@ createCanvas = (el) ->
 
   scene = new THREE.Scene()
 
-  engine =
-    camera: camera
-    scene: scene
+  audio = new Audio()
+
+  engine = { audio, camera, scene }
 
   game = new Game engine
 

@@ -5,7 +5,7 @@ module.exports = class Ship extends Sprite
 
   setup: ->
     @mesh.scale.set 15, 15, 1
-    @mesh.position.y = 5
+    @mesh.position.y = 5.5
 
     @object.position.x = -2
 

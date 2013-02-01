@@ -20,4 +20,20 @@ util =
 for cc in [48..126]
   util.KEYCODE[String.fromCharCode(cc)] = cc
 
+
+class util.CallbackQueue
+  constructor: (callback) ->
+    @callbacks = callback && [callback] || []
+
+  add: (callback) ->
+    @callbacks.push callback
+
+  fire: ->
+    callbacks = @callbacks
+    @callbacks = []
+    for callback in callbacks
+      callback.apply undefined, arguments
+
+
+
 module.exports = util

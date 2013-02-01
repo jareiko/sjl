@@ -16,7 +16,7 @@ module.exports = class Giant extends Sprite
 
   setup: ->
     @mesh.scale.set 10, 10, 1
-    @mesh.position.y = 4.5
+    @mesh.position.y = 5
 
     @state = states.IDLE
     @stateTime = 0

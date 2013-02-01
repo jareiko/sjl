@@ -7,7 +7,7 @@ module.exports = class Viking extends Sprite
 
   setup: ->
     @mesh.scale.set 2, 2, 1
-    @mesh.position.y = 0.5
+    @mesh.position.y = 1
 
     #@object.position.y = 0.5
 
