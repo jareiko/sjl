@@ -4,10 +4,11 @@ Game      = require './game'
 
 createCanvas = (el) ->
   renderer = new THREE.WebGLRenderer
-    alpha: false
-    antialias: false
-    premultipliedAlpha: false
+    alpha: no
+    antialias: no
+    premultipliedAlpha: no
     clearColor: 0xaaccff
+  renderer.sortObjects = no
   #renderer.devicePixelRatio = 1
   renderer.setSize window.innerWidth, window.innerHeight
   el.appendChild renderer.domElement
@@ -25,6 +26,7 @@ createCanvas = (el) ->
   objects = [ 'game placeholder' ]
 
   engine =
+    camera: camera
     scene: scene
     addObject: (obj) ->
       scene.add obj.object if obj.object
@@ -35,7 +37,9 @@ createCanvas = (el) ->
     addObjects: (objs) ->
       engine.addObject obj for obj in objs
 
-  objects[0] = new Game engine
+  objects[0] = game = new Game engine
+
+  document.addEventListener 'keydown', (event) -> game.onKeyDown event
 
   lastTime = 0
 

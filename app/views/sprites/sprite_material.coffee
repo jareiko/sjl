@@ -37,6 +37,7 @@ module.exports = (textureUrl) ->
   texture.minFilter = THREE.NearestMipMapNearestFilter
   cache[textureUrl] = new THREE.ShaderMaterial
     transparent: yes
+    depthTest: no
     uniforms:
       tColor:
         type: 't'
