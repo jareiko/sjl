@@ -1,8 +1,16 @@
-Tile = require '../sprites/tile'
+sprites     = require '../sprites'
+Tile        = require '../sprites/tile'
 
 module.exports = class World
 
   segments = [
+    { type: 'sea1' }
+    { type: 'sea1' }
+    { type: 'sea1' }
+    { type: 'sea1' }
+    { type: 'sea1' }
+    { type: 'sea1' }
+    { type: 'sea1' }
     { type: 'sea1' }
     { type: 'sea1' }
     { type: 'sea1' }
@@ -18,6 +26,21 @@ module.exports = class World
     { type: 'land1' }
     { type: 'land1' }
     { type: 'land1' }
+    { type: 'land1', spawnType: sprites.Giant }
+    { type: 'land1' }
+    { type: 'land1' }
+    { type: 'land1' }
+    { type: 'land1' }
+    { type: 'land1' }
+    { type: 'land1', spawnType: sprites.Giant }
+    { type: 'land1' }
+    { type: 'land1' }
+    { type: 'land1' }
+    { type: 'land1' }
+    { type: 'land1' }
+    { type: 'land1', spawnType: sprites.Giant }
+    { type: 'land1' }
+    { type: 'land1', spawnType: sprites.Giant }
     { type: 'land1' }
     { type: 'land1' }
     { type: 'land1' }
@@ -33,31 +56,50 @@ module.exports = class World
     @object = new THREE.Object3D
 
   buildBackground: ->
+    y = 0
+    z = -40
     for i in [-1...10]
       tile = new Tile 'sky'
       scale = 2.1
       tile.mesh.scale.multiplyScalar scale
-      tile.object.position.x = i * tile.mesh.scale.x
-      tile.object.position.z = -40
+      x = i * tile.mesh.scale.x
+      tile.object.position.set x, y, z
       @object.add tile.object
+    return
 
   buildForeground: ->
+    x = 0
     y = -0.5
-    progress = 0
+    z = 1
     for i in [-1..-6]
       tile = new Tile segments[0].type
-      progress -= tile.mesh.scale.x
-      tile.object.position.set progress, y, 1
+      x -= tile.mesh.scale.x
+      tile.object.position.set x, y, z
       @object.add tile.object
-    progress = 0
+    x = 0
     for segment in segments
       tile = new Tile segment.type
-      tile.object.position.set progress, y, 1
+      tile.object.position.set x, y, z
       @object.add tile.object
-      progress += tile.mesh.scale.x
-      segment.x = progress
+      segment.left = x
+      x += tile.mesh.scale.x
+      segment.right = x
+    return
+
+  buildSpawns: ->
+    @spawns = []
+    for segment in segments
+      if segment.spawnType
+        spawn = new (segment.spawnType)
+        spawn.object.position.x = (segment.left + segment.right) / 2
+        @object.add spawn.object
+        @spawns.push spawn
+    return
 
   getSegmentAt: (x) ->
     for segment, i in segments
-      return segment if segment.x > x
+      return segment if segment.right > x
     return null
+
+  update: (engine) ->
+    spawn.update engine for spawn in @spawns

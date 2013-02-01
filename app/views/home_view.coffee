@@ -8,6 +8,7 @@ createRenderer = ->
     antialias: no
     premultipliedAlpha: no
     clearColor: 0xaaccff
+  renderer.autoClear = no
   renderer.sortObjects = no
   renderer.devicePixelRatio = 1
   renderer.setSize window.innerWidth, window.innerHeight

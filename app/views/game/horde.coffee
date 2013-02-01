@@ -33,6 +33,14 @@ module.exports = class Horde
     engine.camera.position.x = @pos.x + 20
     #engine.camera.position.y = @pos.y
 
+    for spawn in @world.spawns
+      minDist = Infinity
+      for viking in @vikings
+        dist = viking.object.position.x - spawn.object.position.x
+        minDist = dist if Math.abs(dist) < Math.abs(minDist)
+      spawn.vikingDistance minDist
+    return
+
   disembark: ->
     viking.disembark() for viking in @vikings
     @inShip = no

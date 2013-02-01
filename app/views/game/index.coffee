@@ -22,9 +22,12 @@ module.exports = class Game
 
     @world.buildForeground()
 
+    @world.buildSpawns()
+
     @toggleKeys = no
 
   update: (engine) ->
+    @world.update engine
     @ship.update engine
     @horde.update engine
 
@@ -36,3 +39,5 @@ module.exports = class Game
     if event.keyCode is key
       @toggleKeys = not @toggleKeys
       @horde.onDrum()
+
+    event.preventDefault()

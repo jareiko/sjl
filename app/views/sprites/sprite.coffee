@@ -17,6 +17,9 @@ module.exports = class Sprite extends THREE.Mesh
 
   setup: ->
 
+  setAnimationFrame: (i) ->
+    @matIndex = i
+    @mesh.material = @materials[i]
+
   animate: ->
-    @matIndex = (@matIndex + 1) % @textureUrls.length
-    @mesh.material = @materials[@matIndex]
+    @setAnimationFrame (@matIndex + 1) % @materials.length

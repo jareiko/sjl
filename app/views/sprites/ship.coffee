@@ -1,7 +1,6 @@
 Sprite    = require './sprite'
 
 module.exports = class Ship extends Sprite
-  name: 'ship'
   textureUrl: 'textures/Ship/ship_1.png'
 
   setup: ->
