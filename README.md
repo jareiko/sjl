@@ -5,7 +5,7 @@ You control a horde of fearsome Vikings in their quest for beer!
 <img src="http://jareiko.github.com/images/sjl/screen1.jpg" width=389 height=254 alt="screenshot 1">
 <img src="http://jareiko.github.com/images/sjl/screen2.jpg" width=389 height=254 alt="screenshot 2">
 
-Use the A & L keys to beat the drum and push the Vikings forward.
+**Use the A & L keys** to beat the drum and push the Vikings forward.
 
 [Play Super Jojunn Land!](http://jareiko.github.com/sjl)
 
