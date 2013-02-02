@@ -9,7 +9,9 @@ You control a horde of fearsome Vikings in their quest for beer!
 
 [Play Super Jojunn Land!](http://jareiko.github.com/sjl)
 
-(WebGL browser required, such as Chrome or Firefox.)
+WebGL-capable browser required, such as Chrome or Firefox.
+
+Also works in Chrome Beta for Android if you enable WebGL in chrome://flags.
 
 ## Credits
 
