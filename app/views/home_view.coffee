@@ -20,7 +20,7 @@ createCanvas = (el) ->
   el.appendChild renderer.domElement
 
   camera = new THREE.PerspectiveCamera 70, window.innerWidth / window.innerHeight, 1, 200
-  camera.position.z = 30
+  camera.position.z = 20
 
   window.addEventListener 'resize', ->
     camera.aspect = window.innerWidth / window.innerHeight
@@ -36,6 +36,7 @@ createCanvas = (el) ->
   game = new Game engine
 
   document.addEventListener 'keydown', (event) -> game.onKeyDown event
+  document.addEventListener 'touchstart', (event) -> game.onTouchStart event
 
   lastTime = 0
 

@@ -15,6 +15,8 @@ module.exports = class Giant extends Sprite
     ATTACK2: 2  # Club brought down.
 
   setup: ->
+    _.extend @, Backbone.Events
+
     @mesh.scale.set 10, 10, 1
     @mesh.position.y = 5
 
@@ -26,9 +28,11 @@ module.exports = class Giant extends Sprite
 
     switch @state
       when states.ATTACK1
-        if @stateTime > 2 then @setState states.ATTACK2
+        if @stateTime > 0.8
+          @setState states.ATTACK2
+          @trigger 'strike'
       when states.ATTACK2
-        if @stateTime > 2 then @setState states.IDLE
+        if @stateTime > 1 then @setState states.IDLE
 
   setState: (@state) ->
     @setAnimationFrame state

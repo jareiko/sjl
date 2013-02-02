@@ -3,7 +3,10 @@ Sprite    = require './sprite'
 Vec2 = THREE.Vector2
 
 module.exports = class Viking extends Sprite
-  textureUrl: 'textures/Vikings/viking_2.png'
+  textureUrls: [
+    'textures/Vikings/viking_1.png'
+    'textures/Vikings/viking_2.png'
+  ]
 
   setup: ->
     @mesh.scale.set 2, 2, 1
@@ -40,6 +43,9 @@ module.exports = class Viking extends Sprite
     @vel.y -= 200 * engine.deltaTime
     @object.position.y = Math.max 0, @object.position.y + @vel.y * engine.deltaTime
 
+    if Math.random() < engine.deltaTime * 2
+      @animate()
+
   onDrum: ->
     didJump = no
     if @object.position.y <= 0.0
@@ -48,6 +54,11 @@ module.exports = class Viking extends Sprite
 
     @vel.x += Math.random() * 10 - 1 unless @inShip
     didJump
+
+  onStruck: ->
+    scale = Math.random() * 25 + 50
+    @vel.x = -scale
+    @vel.y = scale
 
   disembark: ->
     return unless @inShip

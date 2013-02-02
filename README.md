@@ -1,31 +1,12 @@
-# Brunch with Socket Soup
+# Super Jojunn Land
 
-... for the server's soul
+You control a horde of fearsome Vikings in their quest for beer!
 
+![screenshot 1](http://jareiko.github.com/images/sjl/screen1.jpg)
+![screenshot 2](http://jareiko.github.com/images/sjl/screen2.jpg)
 
-## Ingredients
+Use the A & L keys to beat the drum and push the Vikings forward.
 
-  * [Bootstrap](http://twitter.github.com/bootstrap/index.html)
-  * [Stylus](http://learnboost.github.com/stylus/)
-  * [Coffeescript](http://coffeescript.org/)
-  * [Handlebars](http://handlebarsjs.com/)
-  * [Mocha](http://visionmedia.github.com/mocha/)
-  * [Backbone](http://backbonejs.com)
-  * [Express](http://expressjs.com/)
-  * [Socket.io](http://socket.io/ )
+Play it here: http://jareiko.github.com/sjl
 
-## Getting started
-
-Make sure to have [Brunch.io](http://brunch.io) installed.
-
-Prepare the bowl:
-
-    brunch new <your-project-name> -s github://pheuter/brunch-socket-soup
-
-Throw in the ingredients:
-
-    npm install
-
-Serve and take sips:
-
-    coffee server.coffee && brunch watch
+(WebGL browser required, such as Chrome or Firefox.)

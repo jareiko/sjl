@@ -16,13 +16,15 @@ module.exports = class Game
     @world.buildBackground()
 
     @ship = new sprites.Ship
-    @horde = new Horde @world, @ship
+    @horde = new Horde engine, @world, @ship
 
     engine.scene.add @ship.object
 
     @world.buildForeground()
 
     @world.buildSpawns()
+
+    @horde.listenSpawns @world.spawns
 
     @toggleKeys = no
 
@@ -34,6 +36,10 @@ module.exports = class Game
     @ship.update engine
     @horde.update engine
 
+  onTouchStart: (event) ->
+    @toggleKeys = not @toggleKeys
+    @horde.onDrum @toggleKeys
+
   onKeyDown: (event) ->
     return unless keyWeCareAbout event
     return if isModifierKey event
@@ -41,6 +47,6 @@ module.exports = class Game
     key = if @toggleKeys then KEYCODE.A else KEYCODE.L
     if event.keyCode is key
       @toggleKeys = not @toggleKeys
-      @horde.onDrum()
+      @horde.onDrum @toggleKeys
 
     event.preventDefault()
