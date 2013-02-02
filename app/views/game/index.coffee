@@ -28,8 +28,8 @@ module.exports = class Game
 
     @toggleKeys = no
 
-    engine.audio.loadBuffer 'sounds/vikingtheme.ogg', (buffer) ->
-      engine.audio.playSound buffer, yes, 0.05, 1
+    engine.audio.loadBuffer 'sounds/vikings.mp3', (buffer) ->
+      engine.audio.playSound buffer, yes, 0.5, 1
 
   update: (engine) ->
     @world.update engine

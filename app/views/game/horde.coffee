@@ -51,7 +51,7 @@ module.exports = class Horde
   onDrum: (right) ->
     if @drum
       rate = Math.random() * 0.05 + if right then 0.8 else 0.6
-      @engine.audio.playSound @drum, no, 0.5, rate
+      @engine.audio.playSound @drum, no, 0.7, rate
     jumped = 0
     jumped += viking.onDrum() for viking in @vikings
     if @inShip then @ship.onDrum jumped / @vikings.length
